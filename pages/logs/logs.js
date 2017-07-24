@@ -2,7 +2,13 @@
 var util = require('../../utils/util.js')
 Page({
   data: {
-    logs: []
+    logs: {}
+  },
+  //事件处理函数
+  toast: function () {
+    wx.navigateTo({
+      url: '../ceshi/ceshi'
+    })
   },
   onLoad: function () {
     this.setData({
