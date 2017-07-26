@@ -1,1 +1,19 @@
-<text>others.wxml</text>
+<view class="listView1" >
+<text class="text1">实名认证</text>
+<button class="button1" plain style="color: #007fff; border-color: #007fff;" size="mini" bindtap="listenerLogin">{{type}}</button>
+</view>
+<view class="line1"></view>
+<view class="listView2" >
+<text class="text2">卡状态</text>
+<button class="button2" type="default" plain style="color: #007fff; border-color: #007fff;" size="mini" bindtap="listenerLogin">{{numType}}</button>
+</view>
+<view class="line2"></view>
+<view class="listView3" >
+<text class="text3">余额</text>
+<button class="button3" type="default" plain style="color: #007fff; border-color: #007fff;" size="mini" bindtap="listenerLogin">{{money}}</button>
+</view>
+<view class="line3"></view>
+<view class="listView4" >
+<text class="text4">充值</text>
+<text class="button4">></text>
+</view>

@@ -10,6 +10,7 @@ Page({
   //事件处理函数
   listenerLogin: function() {
     if(this.data.num.length == 0){
+      
       wx.showModal({
         title: '温馨提示',
         content: '请填写卡号',
@@ -21,8 +22,41 @@ Page({
       })
     }else {
       wx.navigateTo({
-        url: '../logs/logs'
+        url: '../ceshi/ceshi'
       })
+      // wx.request({
+      //   url: 'http://hi-watch.com.cn/hiwatchclient/getauthcheck.htm',
+      //   data:{
+      //     'phone': this.data.num
+      //   },
+      //   header:{
+      //     'content-type': 'application/x-www-form-urlencoded'
+      //   },
+      //   success:function(res) {
+      //     console.log(res.data)
+      //     var textType = res.data;
+      //       if(res.data == 1) {
+      //         textType = "审核中";
+      //       } else if (res.data == 2) {
+      //         textType = "审核失败";
+      //       } else if (res.data == 3) {
+      //         textType = "国政通审核失败";
+      //       } else if (res.data == 0) {
+      //         textType = "审核通过";
+      //       }
+      //     wx.navigateTo({
+            
+      //       url: '../ceshi/ceshi?type=' + textType +'&num=14576027930'
+      //     })
+      //   },
+      //   fail: function () {
+      //     wx.showToast({
+      //       title: '请求失败',
+      //       duration: 1000,
+      //       mask: true
+      //     })
+      //   }
+      // })
     }
   },
 
