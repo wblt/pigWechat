@@ -9,30 +9,7 @@ Page({
   },
   //事件处理函数
   listenerLogin: function() {
-    wx.login({
-      success: function (res) {
-        if (res.code) {
-          //发起网络请求
-          wx.request({
-            url: 'https://yg.welcare-tech.com.cn:8443/platform/codeToOpenid.htm',
-            method: 'GET',
-            data: {
-              code: res.code
-            },
-            success: function (res) {
-              var openid = res.data;
-            },
-            fail: function (err) {
-              console.log(err)
-            }
-          })
-        } else {
-          console.log('获取用户登录态失败！' + res.errMsg)
-        }
-      }
-    });
-
-/*
+    
     if(this.data.num.length == 0){
       
       wx.showModal({
@@ -153,7 +130,7 @@ Page({
           })
         }
       })
-    }*/
+    }
   },
 
   listenerPhoneInput: function (e) {
