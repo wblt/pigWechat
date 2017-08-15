@@ -13,7 +13,7 @@
 <button class="button3" type="default" plain style="color: #007fff; border-color: #007fff;" size="mini" bindtap="listenerLogin">{{money}}</button>
 </view>
 <view class="line3"></view>
-<view class="listView4" >
-<text class="text4">充值</text>
-<text class="button4">></text>
+<view class="listView4">
+<text class="text4" bindtap="topUpAction">充值</text>
+<text class="button4" bindtap="topUpAction">></text>
 </view>

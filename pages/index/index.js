@@ -9,6 +9,30 @@ Page({
   },
   //事件处理函数
   listenerLogin: function() {
+    wx.login({
+      success: function (res) {
+        if (res.code) {
+          //发起网络请求
+          wx.request({
+            url: 'https://yg.welcare-tech.com.cn:8443/platform/codeToOpenid.htm',
+            method: 'GET',
+            data: {
+              code: res.code
+            },
+            success: function (res) {
+              var openid = res.data;
+            },
+            fail: function (err) {
+              console.log(err)
+            }
+          })
+        } else {
+          console.log('获取用户登录态失败！' + res.errMsg)
+        }
+      }
+    });
+
+/*
     if(this.data.num.length == 0){
       
       wx.showModal({
@@ -21,43 +45,115 @@ Page({
         }
       })
     }else {
-      wx.navigateTo({
-        url: '../ceshi/ceshi'
-      })
-      // wx.request({
-      //   url: 'http://hi-watch.com.cn/hiwatchclient/getauthcheck.htm',
-      //   data:{
-      //     'phone': this.data.num
-      //   },
-      //   header:{
-      //     'content-type': 'application/x-www-form-urlencoded'
-      //   },
-      //   success:function(res) {
-      //     console.log(res.data)
-      //     var textType = res.data;
-      //       if(res.data == 1) {
-      //         textType = "审核中";
-      //       } else if (res.data == 2) {
-      //         textType = "审核失败";
-      //       } else if (res.data == 3) {
-      //         textType = "国政通审核失败";
-      //       } else if (res.data == 0) {
-      //         textType = "审核通过";
-      //       }
-      //     wx.navigateTo({
-            
-      //       url: '../ceshi/ceshi?type=' + textType +'&num=14576027930'
-      //     })
-      //   },
-      //   fail: function () {
-      //     wx.showToast({
-      //       title: '请求失败',
-      //       duration: 1000,
-      //       mask: true
-      //     })
-      //   }
+      // wx.navigateTo({
+
+      //   url: '../ceshi/ceshi'
       // })
-    }
+      wx.showToast({
+        title: '加载中',
+        icon: 'loading',
+        duration: 10000
+      })
+
+      var that = this
+      wx.request({
+        url: 'https://yg.welcare-tech.com.cn:8443/hiwatchclient/getauthcheck.htm',
+        method: 'get',
+        data:{
+          'phone': this.data.num
+        },
+        header:{
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        success:function(res) {
+          console.log(res.data)
+          var textType = res.data;
+            if(res.data == 1) {
+              textType = "审核中";
+            } else if (res.data == 2) {
+              textType = "审核失败";
+            } else if (res.data == 3) {
+              textType = "国政通审核失败";
+            } else if (res.data == 0) {
+              textType = "审核通过";
+            }else {
+              textType = "未知状态";
+            }
+            wx.request({
+              url: 'https://yg.welcare-tech.com.cn:8443/hiwatchclient/simstatus.htm',
+              method: 'get',
+              data: {
+                'phone': that.data.num
+              },
+              header: {
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              success: function (res1) {
+                console.log(res1.data)
+                var numType = res1.data;
+                if (res1.data == 1) {
+                  numType = "激活不在线";
+                } else if (res1.data == 2) {
+                  numType = "未激活";
+                } else if (res1.data == 3) {
+                  numType = "已停用";
+                } else if (res1.data == 4) {
+                  numType = "库存";
+                } else if (res1.data == 0) {
+                  numType = "激活且在线";
+                } else {
+                  numType = "未知状态";
+                }
+                wx.request({
+                  url: 'https://yg.welcare-tech.com.cn:8443/hiwatchclient/getsimcardbill.htm',
+                  method: 'get',
+                  data: {
+                    'phone': that.data.num
+                  },
+                  header: {
+                    'content-type': 'application/json'
+                  },
+                  success: function (res2) {
+                    console.log(res2.data)
+                    wx.hideToast()
+                    wx.navigateTo({
+
+                      url: '../ceshi/ceshi?type=' + textType + '&numType=' + numType + '&money=' + res2.data.number
+                    })
+                  },
+                  fail: function () {
+                    wx.showToast({
+                      title: '请求失败',
+                      icon: 'success',
+                      duration: 1000,
+                      mask: true
+                    })
+
+                  }
+                })
+              },
+              fail: function () {
+                wx.showToast({
+                  title: '请求失败',
+                  icon: 'success',
+                  duration: 1000,
+                  mask: true
+                })
+
+              }
+            })
+          
+        },
+        fail: function () {
+          wx.showToast({
+            title: '请求失败',
+            icon: 'success',
+            duration: 1000,
+            mask: true
+          })
+        }
+      })
+    }*/
   },
 
   listenerPhoneInput: function (e) {
@@ -78,24 +174,3 @@ Page({
     })
   }
 })
-
-// var rootDocment = 'hxxxxx';//你的域名  
-// function req(url, data, cb) {
-//   wx.request({
-//     url: rootDocment + url,
-//     data: data,
-//     method: 'post',
-//     header: { 'Content-Type': 'application/json' },
-//     success: function (res) {
-//       return typeof cb == "function" && cb(res.data)
-//     },
-//     fail: function () {
-//       return typeof cb == "function" && cb(false)
-//     }
-//   })
-// }
-
-
-// module.exports = {
-//   req: req
-// }  

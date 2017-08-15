@@ -1,2 +1,1 @@
-<!--others.wxml-->
-<text>others.wxml</text>
+<button class="button" type="primary" bindtap="toWeixinPay">10元套餐，10M流量和20分钟通话</button>

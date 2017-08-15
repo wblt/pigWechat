@@ -3,7 +3,8 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/ceshi/ceshi",
-    "pages/others/others"
+    "pages/others/others",
+    "pages/pay/pay"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -12,4 +13,3 @@
     "navigationBarTextStyle": "black"
   }
 }
-  

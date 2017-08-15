@@ -1,0 +1,3 @@
+<!--pay.wxml-->
+<text class="text">支付金额:10</text>
+<button class="button" type="warn" bindtap="toWeixinPay">确认支付</button>
