@@ -58,7 +58,7 @@ Page({
             }
             wx.request({
               url: 'https://yg.welcare-tech.com.cn:8443/hiwatchclient/simstatus.htm',
-              method: 'get',
+              method: 'GET',
               data: {
                 'phone': that.data.num
               },
